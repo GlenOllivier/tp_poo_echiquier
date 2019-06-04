@@ -24,16 +24,16 @@ public abstract class Piece {
 		this.position = position;
 	}
 
-	@Override
-	public String toString() {
-		return "" + getSymbole() + couleur + position;
-	}
-
 	public Position getPosition() {
 		return position;
 	}
 
 	public char getCouleur() {
 		return couleur;
+	}
+
+	@Override
+	public String toString() {
+		return "Piece : " + this.getSymbole() + " Couleur : " + couleur + " Position : " + position;
 	}
 }
