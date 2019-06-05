@@ -30,6 +30,18 @@ public class Echiquier {
 		return null;
 	}
 
+	public Piece getPiece(char symbole, char couleur) {
+		Iterator<Piece> i = pieces.iterator();
+		Piece tmp;
+		while (i.hasNext()) {
+			tmp = i.next();
+			if (tmp.getCouleur() == couleur && tmp.getSymbole() == symbole) {
+				return tmp;
+			}
+		}
+		return null;
+	}
+
 	public int getPoints(char couleur) {
 		Iterator<Piece> i = pieces.iterator();
 		Piece tmp;
@@ -49,18 +61,63 @@ public class Echiquier {
 		for (int i = 0; i < 8; i++) {
 			String ligne = " " + i + " |";
 			for (int j = 0; j < 8; j++) {
-				ligne += " ";
 				Piece tmp = getPiece(new Position(i, j));
 				if (tmp == null) {
-					ligne += " ";
+					ligne += "   ";
 				} else {
-					ligne += tmp.getSymbole();
+					if (tmp.getCouleur() == 'N') {
+						ligne += "*" + tmp.getSymbole() + "*";
+					} else {
+						ligne += " " + tmp.getSymbole() + " ";
+					}
 				}
-				ligne += " |";
+				ligne += "|";
 			}
 			System.out.println(ligne);
 			System.out.println("   ---------------------------------");
 		}
+	}
+
+	public Piece deplacer(Position depart, Position arivee, char couleur) {
+		Piece p = getPiece(depart);
+		if (p == null) {
+			System.out.println("Pas de piece sur cette case");
+			return null;
+		}
+
+		if (p.getCouleur() != couleur) {
+			System.out.println("Cette piece appartient au joueur " + p.getCouleur());
+			return null;
+		}
+
+		if (!p.positionPossible(arivee)) {
+			System.out.println("Mouvement interdit");
+			return null;
+		}
+
+		Position[] intermediaires = p.positionsIntermediaires(arivee);
+		for (int i = 0; i < intermediaires.length; i++) {
+			Piece tmp = getPiece(intermediaires[i]);
+			if (tmp != null) {
+				System.out.println("Une piece bloque le mouvement en " + tmp.getPosition());
+				return null;
+			}
+		}
+
+		Piece p2 = getPiece(arivee);
+		if (p2 != null) {
+			if (p2.getCouleur() == couleur) {
+				return p2;
+			}
+			pieces.remove(p2);
+		}
+		try {
+			p.deplacement(arivee);
+		} catch (ExceptionPosition e) {
+			System.out.println("Erreur de deplacement inconnue...");
+			return null;
+		}
+		return p;
 	}
 
 	/*
