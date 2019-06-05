@@ -26,6 +26,7 @@ public class Fou extends Piece {
 
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
-		return this.positionsIntermediairesDiagonale(position);
+		Position[] p = this.positionsIntermediairesDiagonale(position);
+		return (p == null) ? new Position[0] : p;
 	}
 }

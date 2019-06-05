@@ -90,11 +90,6 @@ public class Echiquier {
 			return null;
 		}
 
-		if (!p.positionPossible(arivee)) {
-			System.out.println("Mouvement interdit");
-			return null;
-		}
-
 		Position[] intermediaires = p.positionsIntermediaires(arivee);
 		for (int i = 0; i < intermediaires.length; i++) {
 			Piece tmp = getPiece(intermediaires[i]);
@@ -109,8 +104,25 @@ public class Echiquier {
 			if (p2.getCouleur() == couleur) {
 				return p2;
 			}
+			if (!p.attaquePossible(arivee)) {
+				System.out.println("Attaque impossible");
+				return null;
+			}
+			try {
+				p.attaque(arivee);
+			} catch (ExceptionPosition e) {
+				System.out.println("Erreur de deplacement inconnue...");
+				return null;
+			}
 			pieces.remove(p2);
+			return p;
 		}
+
+		if (!p.positionPossible(arivee)) {
+			System.out.println("Mouvement interdit");
+			return null;
+		}
+
 		try {
 			p.deplacement(arivee);
 		} catch (ExceptionPosition e) {

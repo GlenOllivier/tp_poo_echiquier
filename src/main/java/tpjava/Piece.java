@@ -38,15 +38,12 @@ public abstract class Piece {
 	}
 
 	public Position[] positionsIntermediaires(Position position) {
-		if (this.positionPossible(position)) {
-			return new Position[0];
-		}
-		return null;
+		return new Position[0];
 	}
 
 	protected Position[] positionsIntermediairesDiagonale(Position position) {
-		if (this.positionPossible(position)) {
-
+		if (this.positionPossible(position) && position.getX() != this.getPosition().getX()
+				&& position.getY() != this.getPosition().getY()) {
 			int x1 = this.position.getX() + 1;
 			int x2 = position.getX() - 1;
 			boolean x1Bigger, y1Bigger;
@@ -127,5 +124,18 @@ public abstract class Piece {
 			}
 		}
 		return null;
+	}
+
+	public boolean attaquePossible(Position position) {
+		return this.positionPossible(position);
+	}
+
+	void attaque(Position position) throws ExceptionPosition {
+		if (attaquePossible(position)) {
+			this.position = position;
+		} else {
+			throw new ExceptionPosition();
+		}
+
 	}
 }

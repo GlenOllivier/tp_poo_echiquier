@@ -25,6 +25,7 @@ public class Tour extends Piece {
 
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
-		return this.positionsIntermediairesLigne(position);
+		Position[] p = this.positionsIntermediairesLigne(position);
+		return (p == null) ? new Position[0] : p;
 	}
 }

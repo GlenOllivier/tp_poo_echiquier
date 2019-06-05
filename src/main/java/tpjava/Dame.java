@@ -27,9 +27,11 @@ public class Dame extends Piece {
 
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
-		if (this.positionsIntermediairesDiagonale(position) != null) {
-			return this.positionsIntermediairesDiagonale(position);
+		Position[] p = this.positionsIntermediairesDiagonale(position);
+		if (p != null) {
+			return p;
 		}
-		return this.positionsIntermediairesLigne(position);
+		p = this.positionsIntermediairesLigne(position);
+		return (p == null) ? new Position[0] : p;
 	}
 }

@@ -15,6 +15,13 @@ public class Pion extends Piece {
 	}
 
 	@Override
+	public boolean attaquePossible(Position position) {
+		return Math.abs(this.position.getY() - position.getY()) == 1
+				&& position.getX() == ((this.couleur == 'B') ? (this.position.getX() - 1) : (this.position.getX() + 1))
+				&& position.getX() >= 0 && position.getY() >= 0 && position.getX() < 8 && position.getY() < 8;
+	}
+
+	@Override
 	char getSymbole() {
 		return 'P';
 	}
