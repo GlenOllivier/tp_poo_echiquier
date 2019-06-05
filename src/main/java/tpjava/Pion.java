@@ -9,7 +9,9 @@ public class Pion extends Piece {
 	@Override
 	boolean positionPossible(Position position) {
 		return this.position.getY() == position.getY()
-				&& position.getX() == ((this.couleur == 'B') ? (this.position.getX() - 1) : (this.position.getX() + 1))
+				&& (position.getX() == ((this.couleur == 'B') ? (this.position.getX() - 1) : (this.position.getX() + 1))
+						|| (!this.hasMoved && position.getX() == ((this.couleur == 'B') ? (this.position.getX() - 2)
+								: (this.position.getX() + 2))))
 				&& position.getX() >= 0 && position.getY() >= 0 && position.getX() < 8 && position.getY() < 8;
 
 	}
@@ -29,5 +31,11 @@ public class Pion extends Piece {
 	@Override
 	char getValeur() {
 		return 1;
+	}
+
+	@Override
+	public Position[] positionsIntermediaires(Position position) {
+		Position[] p = this.positionsIntermediairesLigne(position);
+		return (p == null) ? new Position[0] : p;
 	}
 }

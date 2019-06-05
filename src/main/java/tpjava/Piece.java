@@ -3,6 +3,7 @@ package tpjava;
 public abstract class Piece {
 	protected char couleur;
 	protected Position position;
+	protected boolean hasMoved;
 
 	abstract boolean positionPossible(Position position);
 
@@ -13,6 +14,7 @@ public abstract class Piece {
 	void deplacement(Position position) throws ExceptionPosition {
 		if (positionPossible(position)) {
 			this.position = position;
+			this.hasMoved = true;
 		} else {
 			throw new ExceptionPosition();
 		}
@@ -22,6 +24,7 @@ public abstract class Piece {
 	public Piece(char couleur, Position position) {
 		this.couleur = couleur;
 		this.position = position;
+		this.hasMoved = false;
 	}
 
 	public Position getPosition() {
@@ -133,6 +136,7 @@ public abstract class Piece {
 	void attaque(Position position) throws ExceptionPosition {
 		if (attaquePossible(position)) {
 			this.position = position;
+			this.hasMoved = true;
 		} else {
 			throw new ExceptionPosition();
 		}
