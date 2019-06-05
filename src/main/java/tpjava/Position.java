@@ -30,6 +30,6 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return "{" + x + "," + (char) (y + 65) + "}";
+		return "{" + (char) (y + 65) + "," + x + "}";
 	}
 }
