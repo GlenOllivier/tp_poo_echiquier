@@ -52,12 +52,19 @@ public class Partie {
 	public void lancer() {
 
 		// tant qu'il reste un roi a chaque joueur, la partie continue
-		while (echiquier.getPiece('R', joueurs[0]) != null && echiquier.getPiece('R', joueurs[1]) != null) {
+		while (true) {
 
 			compteurTours++;
 			echiquier.afficher();
-			System.out.println("Tour du joueur " + joueurs[compteurTours % 2]);
+			System.out.println("Tour " + compteurTours + " - joueur " + joueurs[compteurTours % 2]);
+			Piece p2 = echiquier.echec(joueurs[compteurTours % 2]);
+			if (p2 != null) {
+				System.out.println("Echec ! - " + p2);
+			}
 
+			if (echiquier.mat(joueurs[compteurTours % 2])) {
+				break;
+			}
 			Position p = null;
 
 			// selection de la piece
@@ -99,6 +106,7 @@ public class Partie {
 
 		// fin de la partie
 		echiquier.afficher();
+		System.out.println("... et mat !");
 		System.out.println(
 				"Victoire du joueur " + (echiquier.getPiece('R', joueurs[0]) == null ? joueurs[0] : joueurs[1]));
 	}

@@ -11,6 +11,10 @@ public abstract class Piece {
 
 	abstract char getValeur();
 
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
 	void deplacement(Position position) throws ExceptionPosition {
 		if (positionPossible(position)) {
 			this.position = position;
