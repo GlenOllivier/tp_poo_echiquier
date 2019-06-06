@@ -1,5 +1,8 @@
 package tpjava;
 
+/*
+ * Classe qui represente des coordonnees
+ */
 public class Position {
 	private int x, y;
 

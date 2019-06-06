@@ -1,11 +1,17 @@
 package tpjava;
 
+/*
+ * Classe qui represente une Dame
+ */
 public class Dame extends Piece {
 
 	public Dame(char couleur, Position position) {
 		super(couleur, position);
 	}
 
+	/*
+	 * Peux se deplacer en ligne ou en diagonale
+	 */
 	@Override
 	boolean positionPossible(Position position) {
 		return (this.position.getX() != position.getX() || this.position.getY() != position.getY())
@@ -25,6 +31,10 @@ public class Dame extends Piece {
 		return 9;
 	}
 
+	/*
+	 * Renvoie les cases intermediaires en ligne ou en diagonale en fonction du
+	 * mouvement
+	 */
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
 		Position[] p = this.positionsIntermediairesDiagonale(position);

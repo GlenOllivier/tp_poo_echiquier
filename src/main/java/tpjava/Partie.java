@@ -9,7 +9,12 @@ public class Partie {
 	Piece piece;
 	Scanner scanner;
 
-	public Partie() { // lance une partie d'echecs
+	/*
+	 * Constructeur qui instancie une partie d'echecs avec un joueur 'N' et 'B',
+	 * ouvre un Scanner, instancie une echiquier avec les bonnes pieces pour les
+	 * deux joueurs.
+	 */
+	public Partie() {
 
 		scanner = new Scanner(System.in);
 		echiquier = new Echiquier();
@@ -49,26 +54,36 @@ public class Partie {
 		}
 	}
 
+	/*
+	 * Methode qui gere le deroulement d'une partie d'echecs. La partie se finis en
+	 * cas de mat (en cas de pat, le programme est infini)
+	 */
 	public void lancer() {
 
-		// tant qu'il reste un roi a chaque joueur, la partie continue
 		while (true) {
 
 			compteurTours++;
+
+			// affichage de l'echiquier
 			echiquier.afficher();
 			System.out.println("Tour " + compteurTours + " - joueur " + joueurs[compteurTours % 2]);
+
+			// detection d'echec ppour le joueur actuel
 			Piece p2 = echiquier.echec(joueurs[compteurTours % 2]);
 			if (p2 != null) {
 				System.out.println("Echec ! - " + p2);
-			}
 
-			if (echiquier.mat(joueurs[compteurTours % 2])) {
-				break;
+				// detection de mat, et arret de la partie le cas echeant
+				if (echiquier.mat(joueurs[compteurTours % 2])) {
+					break;
+				}
 			}
-			Position p = null;
 
 			// selection de la piece
+			Position p = null;
+
 			while (p == null) {
+
 				p = scanPosition("Veuillez choisir une piece :");
 				if (echiquier.getPiece(p) == null) {
 					System.out.println("Pas de piece a cette position.");
@@ -95,6 +110,9 @@ public class Partie {
 						continue;
 					}
 				}
+
+				// tentative du deplacement demande. on repasse dans la boucle si le mouvement
+				// est interdit.
 				tmp = echiquier.deplacer(piece.getPosition(), p, joueurs[compteurTours % 2]);
 				if (tmp == null) {
 					p = null;
@@ -102,13 +120,13 @@ public class Partie {
 			}
 
 		}
-		scanner.close();
 
 		// fin de la partie
 		echiquier.afficher();
 		System.out.println("... et mat !");
 		System.out.println(
 				"Victoire du joueur " + (echiquier.getPiece('R', joueurs[0]) == null ? joueurs[0] : joueurs[1]));
+		scanner.close();
 	}
 
 	// demande des coordonnees au joueur, sous la forme A0

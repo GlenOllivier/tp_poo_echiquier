@@ -1,7 +1,7 @@
 package tpjava;
 
 /**
- * Hello world!
+ * Cree et lance une partie d'echecs
  *
  */
 public class App {

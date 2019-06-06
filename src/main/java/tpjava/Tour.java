@@ -6,6 +6,9 @@ public class Tour extends Piece {
 		super(couleur, position);
 	}
 
+	/*
+	 * Deplacement en ligne.
+	 */
 	@Override
 	boolean positionPossible(Position position) {
 		return (this.position.getX() != position.getX() || this.position.getY() != position.getY())
@@ -23,6 +26,10 @@ public class Tour extends Piece {
 		return 3;
 	}
 
+	/*
+	 * Redefinition de positionIntermediaires pour correspondre a un deplacement en
+	 * ligne.
+	 */
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
 		Position[] p = this.positionsIntermediairesLigne(position);

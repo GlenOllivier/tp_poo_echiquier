@@ -1,11 +1,18 @@
 package tpjava;
 
+/*
+ * Classe qui represente un Pion
+ */
 public class Pion extends Piece {
 
 	public Pion(char couleur, Position position) {
 		super(couleur, position);
 	}
 
+	/*
+	 * Deplacement d'une case en colonne, ou de deux cases s'il n'a pas encore bouge
+	 * (hasMoved).
+	 */
 	@Override
 	boolean positionPossible(Position position) {
 		return this.position.getY() == position.getY()
@@ -16,6 +23,10 @@ public class Pion extends Piece {
 
 	}
 
+	/*
+	 * Attaque differente du deplacement pour un pion, redefinition de la methode
+	 * attaquePossible. Attaque d'une case en diagonale devant le pion.
+	 */
 	@Override
 	public boolean attaquePossible(Position position) {
 		return Math.abs(this.position.getY() - position.getY()) == 1
@@ -33,6 +44,9 @@ public class Pion extends Piece {
 		return 1;
 	}
 
+	/*
+	 * Deplacement en ligne, sert si le pion veux avancer de deux cases.
+	 */
 	@Override
 	public Position[] positionsIntermediaires(Position position) {
 		Position[] p = this.positionsIntermediairesLigne(position);

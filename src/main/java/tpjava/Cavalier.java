@@ -1,11 +1,17 @@
 package tpjava;
 
+/*
+ * Classe qui represente un cavalier
+ */
 public class Cavalier extends Piece {
 
 	public Cavalier(char couleur, Position position) {
 		super(couleur, position);
 	}
 
+	/*
+	 * Deplacement en L
+	 */
 	@Override
 	boolean positionPossible(Position position) {
 		return (((Math.abs(this.position.getY() - position.getY()) == 2
